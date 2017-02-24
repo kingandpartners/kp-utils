@@ -10,7 +10,7 @@ namespace :github do
       auth  = "-H 'Authorization: token #{token}'"
 
       current_branch = `git rev-parse --abbrev-ref HEAD`
-      target         = Rails.env.production? ? 'master' : current_branch.try(:strip) || 'develop'
+      target         = `git branch | grep \* | cut -d ' ' -f2`
       prerelease     = !Rails.env.production?
 
       params = {
